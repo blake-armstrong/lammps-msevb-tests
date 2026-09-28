@@ -1005,14 +1005,14 @@
     "temperature": null
   },
   "meta": {
-    "lammps_fork_commit": "78f55b64668e8b48deb2d87c3601f4ca61574cb3",
+    "lammps_fork_commit": "61f6b31d475f307353260745b4174da7b2063497",
     "lammps_fork_branch": "develop",
-    "lammps_fork_src_modified": true,
+    "lammps_fork_src_modified": false,
     "lammps_version": "Large-scale Atomic/Molecular Massively Parallel Simulator - 4 Jul 2026 - Development",
     "fft_library": "KISS",
     "mpirun": "mpirun (Open MPI) 5.0.10",
     "layout": "2x1",
-    "generated": "2026-09-28T08:08:44+00:00",
+    "generated": "2026-09-28T08:36:41+00:00",
     "criterion": {
       "nstates": 22,
       "max_abs_coupling": 0.6951314896034518,
