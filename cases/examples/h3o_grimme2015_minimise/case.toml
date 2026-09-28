@@ -1,0 +1,5 @@
+source = "lammps-fork:examples/PACKAGES/msevb/h3o_grimme2015_minimise"
+files = ["data.h3o", "ff.lmp", "pre_h3o.mol", "post_h3o.mol", "react.map"]
+units = "metal"
+mode = "minimize"
+criterion = "coupling"

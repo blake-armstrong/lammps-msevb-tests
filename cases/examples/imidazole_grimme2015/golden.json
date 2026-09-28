@@ -1,0 +1,105 @@
+{
+  "case": "examples/imidazole_grimme2015",
+  "pe": -498.0461224643609,
+  "f_evb": -0.8947888324996711,
+  "evb": {
+    "timestep": 0,
+    "nstates": 4,
+    "states": [
+      [
+        "reference",
+        []
+      ],
+      [
+        "chain",
+        [
+          [
+            2,
+            7,
+            959,
+            0
+          ]
+        ]
+      ],
+      [
+        "chain",
+        [
+          [
+            2,
+            7,
+            1940,
+            0
+          ]
+        ]
+      ],
+      [
+        "chain",
+        [
+          [
+            4,
+            9,
+            221,
+            0
+          ]
+        ]
+      ]
+    ],
+    "hamiltonian": [
+      [
+        -497.15133363186123,
+        6.245648053094401,
+        2.2301261591759127,
+        3.9490633552623065
+      ],
+      [
+        6.245648053094401,
+        -435.1891190472379,
+        0.0,
+        0.0
+      ],
+      [
+        2.2301261591759127,
+        0.0,
+        -422.4118181518543,
+        0.0
+      ],
+      [
+        3.9490633552623065,
+        0.0,
+        0.0,
+        -423.2304657322429
+      ]
+    ],
+    "eigenvalues": [
+      -498.0461224643609,
+      -434.5829392417995,
+      -423.0328540762783,
+      -422.32082078075763
+    ],
+    "amplitudes": [
+      0.9866520660408886,
+      0.009741182930400912,
+      0.0008577984563607786,
+      0.0027489525723496827
+    ],
+    "occupations": null,
+    "coupling_scale": 1.0,
+    "temperature": null
+  },
+  "meta": {
+    "lammps_fork_commit": "78f55b64668e8b48deb2d87c3601f4ca61574cb3",
+    "lammps_fork_branch": "develop",
+    "lammps_fork_src_modified": true,
+    "lammps_version": "Large-scale Atomic/Molecular Massively Parallel Simulator - 4 Jul 2026 - Development",
+    "fft_library": "KISS",
+    "mpirun": "mpirun (Open MPI) 5.0.10",
+    "layout": "2x1",
+    "generated": "2026-09-28T08:08:44+00:00",
+    "criterion": {
+      "nstates": 4,
+      "max_abs_coupling": 6.245648053094401,
+      "coupling_lowering": 0.8947888324996711,
+      "mixed_states": 3
+    }
+  }
+}

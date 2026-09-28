@@ -1,0 +1,34 @@
+source = "bicarbonate-msevb:msevb"
+files = [
+    "coord.lmp", "forcefield.lmp", "oh_full.sw",
+    "hco3_oh.mol", "co3_h2o.mol", "bicarb_h2o.mol", "carb_h3o.mol",
+    "h3o_h2o.mol", "h2o_h3o.mol", "oh_h2o.mol", "h2o_oh.mol",
+    "h3o_oh.mol", "h2o_h2o.mol", "bicarbonate.mol", "hydronium.mol",
+    "bicarb2carbviaoh.map", "carb2bicarbviaoh.map",
+    "bicarb2carbviah3o.map", "carb2bicarbviah3o.map",
+    "h3o2h2o.map", "oh2h2o.map", "h3ooh.map",
+]
+units = "metal"
+mode = "run0"
+criterion = "coupling"
+# HCO3- -> CO3-- + H3O+ in neutral water sits ~3.6 eV above the reference state, so the
+# energy/gaussian coupling (a=0.8, b=0.15) peaks near 0.11 eV and lowers the ground state
+# by at most ~4 meV over a 2 ps trajectory: non-zero, but below the 0.01 eV defaults.
+min_coupling = 0.05
+min_lowering = 1.0e-3
+min_weight = 5.0e-4
+
+[search]
+dynamics = """
+fix nve all nve
+fix tst all temp/csvr 300 300 0.1 12345
+timestep 0.001
+velocity all create 300.0 98765 mom yes dist gaussian
+fix com all momentum 100 linear 1 1 1
+"""
+
+[coupled_config]
+data = "data.coupled"
+from_data = "coord.lmp"
+step = 1910
+layout = "2x1"

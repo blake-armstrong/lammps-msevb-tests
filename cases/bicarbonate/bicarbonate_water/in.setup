@@ -1,0 +1,43 @@
+units metal
+atom_style full
+boundary p p p
+
+read_data data.coupled extra/bond/per/atom 2 extra/angle/per/atom 2 extra/dihedral/per/atom 2 extra/improper/per/atom 2 extra/special/per/atom 2
+include forcefield.lmp
+
+molecule bicarb_oh hco3_oh.mol
+molecule carb_h2o co3_h2o.mol
+molecule bicarb_h2o bicarb_h2o.mol
+molecule carb_h3o carb_h3o.mol
+molecule h3o_h2o h3o_h2o.mol
+molecule h2o_h3o h2o_h3o.mol
+molecule oh_h2o oh_h2o.mol
+molecule h2o_oh h2o_oh.mol
+molecule h3o_oh h3o_oh.mol
+molecule h2o_h2o h2o_h2o.mol
+molecule bicarbonate bicarbonate.mol
+molecule hydronium   hydronium.mol
+
+pair_coeff * * template/offset bicarbonate -2.4972
+pair_coeff * * template/offset hydronium    8.6143
+
+fix evb all msevb         &
+  reaction bicarb_oh carb_h2o bicarb2carbviaoh.map 2.5 taper 2.0 shells 1 coupling energy/gaussian a 0.8 b 0.15 &
+  reaction carb_h2o bicarb_oh carb2bicarbviaoh.map 2.5 taper 2.0 shells 1 coupling energy/gaussian a 0.8 b 0.15 &
+  reaction bicarb_h2o carb_h3o bicarb2carbviah3o.map 2.5 taper 2.0 shells 1 coupling energy/gaussian a 0.8 b 0.15 &
+  reaction carb_h3o bicarb_h2o carb2bicarbviah3o.map 2.5 taper 2.0 shells 1 coupling energy/gaussian a 0.8 b 0.15 &
+  reaction h3o_h2o h2o_h3o h3o2h2o.map 2.5 taper 2.0 shells 2 coupling energy/gaussian a 0.8 b 0.15 &
+  reaction oh_h2o h2o_oh oh2h2o.map 2.5 taper 2.0 shells 2 coupling energy/gaussian a 0.8 b 0.15 &
+  reaction h3o_oh h2o_h2o h3ooh.map 2.5 taper 2.0 shells 1 coupling energy/gaussian a 0.8 b 0.15 &
+  product_states &
+  file msevb.json every 1
+
+fix_modify evb energy yes
+
+labelmap atom &
+  1 O1 2 H1 &
+  3 O2 4 H2 &
+  5 O3 6 H3 &
+  7 C4 8 O4 &
+  9 C5 10 O5 11 O6 12 H6 &
+  13 Mg 14 Ca 15 Sr 16 Ba

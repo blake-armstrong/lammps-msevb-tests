@@ -1,0 +1,243 @@
+##############################################################################################
+#### Atoms' types - mass - charge
+##############################################################################################
+#@ 16   atom types
+
+variable O1  equal 1 # Hydroxide Oxygen
+variable H1  equal 2 # Hydroxide Hydrogen
+
+variable O2  equal 3 # Water Oxygen
+variable H2  equal 4 # Water Hydrogen
+
+variable O3  equal 5 # Hydronium Oxygen
+variable H3  equal 6 # Hydronium Hydrogen
+
+variable C4  equal 7 # Carbonate Carbon
+variable O4  equal 8 # Carbonate Oxygen
+
+variable C5  equal 9 # Bicarbonate Carbon
+variable O5  equal 10 # Bicarbonate Oxygen
+variable O6  equal 11 # Bicarbonate Oxygen (OH)
+variable H6  equal 12 # Bicarbonate Hydrogen (OH)
+
+variable Mg  equal 13  # Magnesium
+variable Ca  equal 14  # Calcium
+variable Sr  equal 15  # Strontium
+variable Ba  equal 16  # Barium
+
+##############################################################################################
+#### Atoms' masses
+##############################################################################################
+
+mass  ${O1}    16.000
+mass  ${H1}     1.010
+mass  ${O2}    16.000
+mass  ${H2}     1.010
+mass  ${O3}    16.000
+mass  ${H3}     1.010
+mass  ${C4}    12.010
+mass  ${O4}    16.000
+mass  ${C5}    12.010
+mass  ${O5}    16.000
+mass  ${O6}    16.000
+mass  ${H6}     1.010
+mass  ${Mg}    24.305
+mass  ${Ca}    40.080
+mass  ${Sr}    87.620
+mass  ${Ba}   137.330
+
+##############################################################################################
+#### Atoms' charges
+##############################################################################################
+
+set type ${O1}  charge    -1.100000
+set type ${H1}  charge     0.100000
+set type ${O2}  charge    -0.820000 
+set type ${H2}  charge     0.410000 
+set type ${O3}  charge    -0.500000 
+set type ${H3}  charge     0.500000 
+set type ${C4}  charge     1.423285
+set type ${O4}  charge    -1.141095
+set type ${C5}  charge     0.926858
+set type ${O5}  charge    -0.825861
+set type ${O6}  charge    -0.601173
+set type ${H6}  charge     0.326037
+set type ${Mg}  charge     2.000000
+set type ${Ca}  charge     2.000000
+set type ${Sr}  charge     2.000000
+set type ${Ba}  charge     2.000000
+
+##############################################################################################
+#### Covalent bonds parameters                                                                
+##############################################################################################
+#@  7   bond types
+
+bond_style hybrid harmonic morse
+#@ O1 - H1
+bond_coeff   1      harmonic       26.746650      0.962000
+#@ O2 - H2
+bond_coeff   2      harmonic       22.965000      1.0120000
+#@ O3 - H3   
+bond_coeff   3      morse           3.857600      2.1000000       1.0000000
+#@ C4 - O4
+bond_coeff   4      harmonic       20.424650      1.3042000
+#@ C5 - O6
+bond_coeff   5      harmonic       12.500000      1.4000000
+#@ C5 - O5
+bond_coeff   6      harmonic       24.550000      1.2700000
+#@ H6 - O6
+bond_coeff   7      morse           3.857600      2.5610000       0.998040
+
+##############################################################################################
+#### Covalent angles parameters                                                               
+##############################################################################################
+#@  6   angle types
+
+angle_style harmonic 
+#@ H2 - O2 - H2  
+angle_coeff   1      1.6456800      113.24000                              
+#@ H3 - O3 - H3  
+angle_coeff   2      1.6800000      111.72690
+#@ O4 - C4 - O4 
+angle_coeff   3      6.6170000      120.00000
+#@ O5 - C5 - O6 
+angle_coeff   4      2.3319687      115.73747
+#@ O5 - C5 - O5 
+angle_coeff   5      6.3065000      126.05071
+#@ H6 - O6 - C5 
+angle_coeff   6      2.2600000      115.73747
+
+####################################################################################
+#### Covalent dihedrals parameters
+####################################################################################
+#@ 1 dihedral types
+
+dihedral_style charmm
+#@  H6 - O6 - C5 - O5
+dihedral_coeff   1        0.11282500   2 180   0.00000
+
+####################################################################################
+#### Covalent improper dihedrals parameters
+####################################################################################
+#@ 2 improper types
+
+improper_style distance
+#@  C4 - O4 - O4 - O4
+improper_coeff   1     13.647000      360.00000
+#@  C5 - O5 - O5 - O6
+improper_coeff   2     11.100000      360.00000
+
+#####################################################################################
+# Pair potentials
+####################################################################################
+
+variable rtap  equal 8.
+variable rcut  equal 9.
+
+pair_style hybrid/overlay coul/long         ${rcut} &
+                             lj/cut         ${rcut} &
+                             lj/mdf ${rtap} ${rcut} &
+                           buck/mdf ${rtap} ${rcut} &
+                        lennard/mdf ${rtap} ${rcut} &
+                                    sw threebody on template/offset & 
+
+ pair_coeff         *       *       coul/long
+
+####################################################################################
+# Water - water (SPC/Fw)
+pair_coeff     ${O2}   ${O2}          lj/cut         0.00674         3.165492
+pair_modify tail no
+
+# Water - hydroxide 
+pair_coeff     ${H1}   ${O2}        buck/mdf       200.0000          0.425       0.0
+pair_coeff     ${O1}   ${O2}     lennard/mdf     21250.000           0.000000
+pair_coeff     *       *            sw  oh_full.sw    1 2 3 NULL NULL NULL NULL NULL NULL NULL NULL NULL NULL 14 NULL NULL
+
+# Hydroxide - hydroxide
+pair_coeff     ${O1}   ${O1}          lj/mdf         0.021575395     3.1221110
+
+# Water - hydronium 
+pair_coeff     ${O2}   ${O3}          lj/mdf         0.0053684       3.142
+pair_coeff     ${O2}   ${H3}          lj/mdf         0.00010891      1.582746
+
+# Hydronium - hydroxide
+pair_coeff     ${O1}   ${O3}          lj/mdf         0.0053684       3.142
+pair_coeff     ${O1}   ${H3}          lj/mdf         0.00010891      1.582746
+pair_coeff     ${H1}   ${O3}        buck/mdf       200.0000          0.425       0.0
+
+# Carbonate - water - new from paper :: dG= -1252 kJ/mol
+pair_coeff     ${O2}   ${O4}        buck/mdf     12534.455133        0.202       0.0
+pair_coeff     ${O2}   ${C4}        buck/mdf     12534.455133        0.28        0.0
+pair_coeff     ${H2}   ${O4}        buck/mdf       340.0000          0.217       0.0
+
+# Carbonate - hydronium
+pair_coeff     ${O3}   ${O4}        buck/mdf     12534.455133        0.202       0.0
+pair_coeff     ${O3}   ${C4}        buck/mdf     12534.455133        0.28        0.0
+pair_coeff     ${H3}   ${O4}        buck/mdf       340.0000          0.217       0.0
+
+# Bicarbonate - water - from older work
+pair_coeff     ${O2}   ${O5}        buck/mdf     13500.0             0.235000    0.0
+pair_coeff     ${O2}   ${O6}        buck/mdf      8200.0             0.215000    0.0
+pair_coeff     ${O2}   ${H6}     lennard/mdf         5.0             0.000000
+pair_coeff     ${H2}   ${O5}     lennard/mdf        15.0             0.000000
+pair_coeff     ${H2}   ${O6}     lennard/mdf        80.0             0.000000
+
+# Bicarbonate - bicarbonate - from older work
+pair_coeff     ${C5}   ${O5}        buck/mdf       600.000000        0.3        0.0
+pair_coeff     ${C5}   ${O6}        buck/mdf       600.000000        0.3        0.0
+pair_coeff     ${O5}   ${H6}        buck/mdf       578.218500        0.25       0.0
+pair_coeff     ${O6}   ${H6}        buck/mdf       420.905400        0.25       0.0 
+
+# Bicarbonate - carbonate - from older work
+pair_coeff     ${C4}   ${O5}        buck/mdf        48.399296        0.57        0.0
+pair_coeff     ${C4}   ${O6}        buck/mdf        50.578693        0.57        0.0
+pair_coeff     ${O4}   ${C5}        buck/mdf        67.475158        0.57        0.0
+pair_coeff     ${O4}   ${H6}        buck/mdf       719.5374          0.25        0.0    
+
+# Bicarbonate - hydroxide 
+pair_coeff     ${H6}   ${O1}     lennard/mdf         4.3622814       0.0000000
+pair_coeff     ${H1}   ${O5}     lennard/mdf         125.17184      12.444867
+pair_coeff     ${H1}   ${O6}     lennard/mdf         125.17184      12.444867
+pair_coeff     ${H1}   ${H6}     lennard/mdf          12.00000       0.00
+
+# Cation - Carbonate - new from paper
+pair_coeff     ${O4}   ${Mg}        buck/mdf     3336.5869           0.244667    0.0
+pair_coeff     ${O4}   ${Ca}        buck/mdf     8741.2801           0.244960    0.0
+pair_coeff     ${O4}   ${Sr}        buck/mdf     3273.9620           0.283096    0.0
+pair_coeff     ${O4}   ${Ba}        buck/mdf    15472.601            0.255163    0.0
+
+# Cations - water - new from paper
+pair_coeff     ${O2}   ${Mg}          lj/mdf        0.001137         2.72              # Mg :: dG= -1826 kJ/mol
+pair_coeff     ${O2}   ${Ca}          lj/mdf        0.000950         3.25              # Ca :: dG= -1499 kJ/mol
+pair_coeff     ${O2}   ${Sr}          lj/mdf        0.000776         3.52              # Sr :: dG= -1380 kJ/mol
+pair_coeff     ${O2}   ${Ba}          lj/mdf        0.000657         3.82              # Ba :: dG= -1251 kJ/mol
+
+# Cation - hydroxyl - from older work
+pair_coeff     ${O1}   ${Ca}        buck/mdf      950.3              0.329516    0.0
+pair_coeff     ${O1}   ${Mg}        buck/mdf     2256.2347           0.250000    0.0
+
+# Cation - bicarbonate - from older work (via scaling rules)
+pair_coeff     ${O5}   ${Mg}        buck/mdf     3129.3082           0.238160    0.0
+pair_coeff     ${O6}   ${Mg}        buck/mdf     2277.9325           0.238160    0.0
+pair_coeff     ${O5}   ${Ca}        buck/mdf     1850.0000           0.271511    0.0
+pair_coeff     ${O6}   ${Ca}        buck/mdf     1103.0000           0.271511    0.0
+pair_coeff     ${O5}   ${Sr}        buck/mdf    11304.1955           0.244116    0.0 
+pair_coeff     ${O6}   ${Sr}        buck/mdf     8228.7178           0.244116    0.0 
+pair_coeff     ${O5}   ${Ba}        buck/mdf    10691.7037           0.258299    0.0
+pair_coeff     ${O6}   ${Ba}        buck/mdf     7782.8637           0.258299    0.0
+
+# Carbonate - carbonate - new from paper
+pair_coeff     ${O4}   ${O4}        buck/mdf    75032.644            0.198913   28.0
+
+####################################################################################
+
+special_bonds lj 0.  0.  0.5  coul 0.  0.  0.8333333333
+
+####################################################################################
+# Parameters for reciprocal space electrostatics
+####################################################################################
+
+kspace_style pppm 1.0e-5
+kspace_modify fftbench no
+
+###################################

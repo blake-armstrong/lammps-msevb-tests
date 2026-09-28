@@ -1,0 +1,20 @@
+source = "lammps-fork:examples/PACKAGES/msevb/bazro3h_raiteri2011"
+files = ["data.bazro3h", "ff.lmp", "pre.mol", "post.mol", "react.map"]
+units = "metal"
+mode = "run0"
+criterion = "coupling"
+
+[search]
+dynamics = """
+fix nve all nve
+fix tst all temp/csvr 1500 1500 0.1 12345
+timestep 0.001
+velocity all create 1500.0 98765 mom yes dist gaussian
+fix com all momentum 100 linear 1 1 1
+"""
+
+[coupled_config]
+data = "data.coupled"
+from_data = "data.bazro3h"
+step = 540
+layout = "2x1"

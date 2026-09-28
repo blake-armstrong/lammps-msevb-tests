@@ -1,0 +1,22 @@
+units metal
+atom_style full
+boundary p p p
+
+read_data data.licoo2
+
+include ff.lmp
+
+neigh_modify one 5000
+molecule pre pre.mol
+molecule post post.mol
+
+fix evb all msevb &
+  coupling none &
+  reaction pre post react.map 3.5 &
+  shells 1 &
+  fermi_dirac 300.0 &
+  file msevb.json every 1
+
+fix_modify evb energy yes
+
+labelmap atom 1  Li 2  Co2 3   Co3 4  Co4 5  O 6  Co1

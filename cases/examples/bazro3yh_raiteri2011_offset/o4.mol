@@ -1,0 +1,12 @@
+# Single O4 atom (type 8) used as the pair_style template/offset template:
+# adds a constant energy offset for every O4 in the system.
+
+1 atoms
+
+Coords
+
+1    0.0  0.0  0.0
+
+Types
+
+1    8

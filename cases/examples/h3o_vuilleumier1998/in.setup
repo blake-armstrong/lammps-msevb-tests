@@ -1,0 +1,17 @@
+units metal
+atom_style full
+boundary p p p
+
+read_data data.h3o
+include ff.lmp
+
+molecule pre  pre_h3o.mol
+molecule post post_h3o.mol
+
+fix evb all msevb         &
+  reaction pre post react.map 2.5 taper 2.0 shells 3 coupling geometry/exp v12 3.1569067 alpha 0.85 gamma 0 &
+  file msevb.json every 1
+
+fix_modify evb energy yes
+
+labelmap atom 1 O2 2 H2 3 O3 4 H3

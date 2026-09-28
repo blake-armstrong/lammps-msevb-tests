@@ -1,0 +1,14 @@
+source = "lammps-fork:examples/PACKAGES/msevb/licoo2_fermidirac_scf"
+files = ["data.licoo2_scf", "ff.lmp", "pre.mol", "post.mol", "react.map"]
+units = "metal"
+mode = "run0"
+criterion = "fermi_dirac"
+
+# Near-degenerate polaron states make the Fermi-Dirac occupations sensitive to
+# eigenvalue roundoff: across layouts 1x1..3x2 amplitudes spread by up to 9.2e-9 and
+# forces by up to 3.3e-8 eV/A (all other cases stay below 1.5e-11 eV/A).
+[tolerances.amplitudes]
+atol = 1.0e-6
+
+[tolerances.forces]
+atol = 3.0e-6

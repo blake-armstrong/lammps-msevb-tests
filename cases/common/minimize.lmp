@@ -1,0 +1,9 @@
+thermo_style custom step pe f_evb fnorm
+thermo_modify format float %.17g
+thermo 1
+
+min_style cg
+minimize 0.0 0.0 10 100
+
+print "$(pe:%.17g) $(f_evb:%.17g)" file energy.${p}.txt screen no
+write_dump all custom forces.${p}.dump id type q fx fy fz modify sort id format float %.17g

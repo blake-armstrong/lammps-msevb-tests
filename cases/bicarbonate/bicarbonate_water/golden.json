@@ -1,0 +1,63 @@
+{
+  "case": "bicarbonate/bicarbonate_water",
+  "pe": -254.8309025463488,
+  "f_evb": -0.0031307091791745734,
+  "evb": {
+    "timestep": 0,
+    "nstates": 2,
+    "states": [
+      [
+        "reference",
+        []
+      ],
+      [
+        "chain",
+        [
+          [
+            4,
+            5,
+            9,
+            2
+          ]
+        ]
+      ]
+    ],
+    "hamiltonian": [
+      [
+        -254.82777183716962,
+        0.10710867037043065
+      ],
+      [
+        0.10710867037043065,
+        -251.16647170593092
+      ]
+    ],
+    "eigenvalues": [
+      -254.8309025463488,
+      -251.16334099675174
+    ],
+    "amplitudes": [
+      0.9991463785578428,
+      0.0008536214421573131
+    ],
+    "occupations": null,
+    "coupling_scale": 1.0,
+    "temperature": null
+  },
+  "meta": {
+    "lammps_fork_commit": "78f55b64668e8b48deb2d87c3601f4ca61574cb3",
+    "lammps_fork_branch": "develop",
+    "lammps_fork_src_modified": true,
+    "lammps_version": "Large-scale Atomic/Molecular Massively Parallel Simulator - 4 Jul 2026 - Development",
+    "fft_library": "KISS",
+    "mpirun": "mpirun (Open MPI) 5.0.10",
+    "layout": "2x1",
+    "generated": "2026-09-28T08:08:44+00:00",
+    "criterion": {
+      "nstates": 2,
+      "max_abs_coupling": 0.10710867037043065,
+      "coupling_lowering": 0.0031307091791745734,
+      "mixed_states": 2
+    }
+  }
+}

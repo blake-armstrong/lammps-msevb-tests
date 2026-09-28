@@ -1,0 +1,5 @@
+source = "lammps-fork:examples/PACKAGES/msevb/imidazole_grimme2015"
+files = ["data.imidazole", "ff.lmp", "pre.mol", "post.mol", "react.map"]
+units = "real"
+mode = "run0"
+criterion = "coupling"

@@ -1,0 +1,63 @@
+{
+  "case": "examples/bazro3h_raiteri2011",
+  "pe": -31406.050432630902,
+  "f_evb": -0.033670340566459345,
+  "evb": {
+    "timestep": 0,
+    "nstates": 2,
+    "states": [
+      [
+        "reference",
+        []
+      ],
+      [
+        "chain",
+        [
+          [
+            2,
+            1,
+            17,
+            0
+          ]
+        ]
+      ]
+    ],
+    "hamiltonian": [
+      [
+        -31406.016762290335,
+        0.354291849873235
+      ],
+      [
+        0.354291849873235,
+        -31402.322441978813
+      ]
+    ],
+    "eigenvalues": [
+      -31406.050432630902,
+      -31402.288771638247
+    ],
+    "amplitudes": [
+      0.9910490762902953,
+      0.00895092370970477
+    ],
+    "occupations": null,
+    "coupling_scale": 1.0,
+    "temperature": null
+  },
+  "meta": {
+    "lammps_fork_commit": "78f55b64668e8b48deb2d87c3601f4ca61574cb3",
+    "lammps_fork_branch": "develop",
+    "lammps_fork_src_modified": true,
+    "lammps_version": "Large-scale Atomic/Molecular Massively Parallel Simulator - 4 Jul 2026 - Development",
+    "fft_library": "KISS",
+    "mpirun": "mpirun (Open MPI) 5.0.10",
+    "layout": "2x1",
+    "generated": "2026-09-28T08:08:44+00:00",
+    "criterion": {
+      "nstates": 2,
+      "max_abs_coupling": 0.354291849873235,
+      "coupling_lowering": 0.033670340566459345,
+      "mixed_states": 2
+    }
+  }
+}

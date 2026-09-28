@@ -1,0 +1,17 @@
+units metal
+atom_style full
+boundary p p p
+
+read_data data.coupled
+include ff.lmp
+
+molecule pre pre.mol
+molecule post post.mol
+
+fix evb all msevb         &
+  reaction pre post react.map 1.9 taper 1.7 shells 1 coupling geometry/gaussian lambda 0.7998 zeta 16 &
+  file msevb.json every 1
+
+fix_modify evb energy yes
+
+labelmap atom 1  Ba 2  Zr 3   Y 4  O1 5  O2 6  O3 7  H1

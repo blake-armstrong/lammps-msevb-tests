@@ -1,0 +1,17 @@
+units real
+atom_style full
+boundary p p p
+
+read_data data.imidazole
+include ff.lmp
+
+molecule pre  pre.mol
+molecule post post.mol
+
+fix evb all msevb         &
+  reaction pre post react.map 2.8 taper 2.4 shells 3 coupling energy/gaussian a 18.448 b 0.0002821 &
+  file msevb.json every 1
+
+fix_modify evb energy yes
+
+labelmap atom 1 C1Im  2 NAIm  3 C2Im  4 NCIm  5 C3Im  6 H1Im  7 HNIm  8 H3Im  9 H4Im 10 C1Ih 11 NAIh 12 C2Ih 13 H4Ih 14 HNIh 15 H5Ih

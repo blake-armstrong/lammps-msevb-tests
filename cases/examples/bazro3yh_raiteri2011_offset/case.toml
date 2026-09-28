@@ -1,0 +1,9 @@
+source = "lammps-fork:examples/PACKAGES/msevb/bazro3yh_raiteri2011_offset"
+files = [
+    "data.bazro3yh", "ff.lmp", "react.map", "o4.mol",
+    "pre1.mol", "post1.mol", "pre2.mol", "post2.mol",
+    "pre3.mol", "post3.mol", "pre4.mol", "post4.mol",
+]
+units = "metal"
+mode = "run0"
+criterion = "coupling"

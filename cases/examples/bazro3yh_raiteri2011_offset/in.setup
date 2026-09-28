@@ -1,0 +1,31 @@
+units metal
+atom_style full
+boundary p p p
+
+read_data data.bazro3yh
+include ff.lmp
+
+molecule pre1   pre1.mol
+molecule post1  post1.mol
+molecule pre2   pre2.mol
+molecule post2  post2.mol
+molecule pre3   pre3.mol
+molecule post3  post3.mol
+molecule pre4   pre4.mol
+molecule post4  post4.mol
+molecule o4 o4.mol
+
+pair_coeff * * template/offset o4 0.843
+
+fix evb all msevb         &
+  coupling geometry/gaussian lambda 0.7998 zeta 16  &
+  reaction pre1 post1 react.map 1.9 taper 1.7 &
+  reaction pre2 post2 react.map 1.9 taper 1.7 &
+  reaction pre3 post3 react.map 1.9 taper 1.7 &
+  reaction pre4 post4 react.map 1.9 taper 1.7 &
+  shells 1         &
+  file msevb.json every 1
+
+fix_modify evb energy yes
+
+labelmap atom 1  Ba 2  Zr 3  Y 4  O1 5  O2 6  O3 7  H1 8  O4
